@@ -1,0 +1,14 @@
+﻿using MediMed.Dto;
+using MediMed.Models;
+
+namespace MediMed.Repo.Interface
+{
+    public interface IHealthTipRepo
+    {
+        Task CreateHealthTip(HealthTipDto healthTipDto);
+        List<HealthTip> GetAllHealthTips();
+        Task<HealthTip?> GetHealthTipById(int id);
+        Task UpdateHealthTip(int id, HealthTipDto healthTipDto);
+        Task DeleteHealthTip(int id);
+    }
+}
