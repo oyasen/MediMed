@@ -28,11 +28,31 @@ namespace MediMed.Controllers
             await _patientRepo.CreatePatient(patientDto);
             return Created();
         }
+        [HttpPost("{patientId}/assign-nurse/{nurseId}")]
+        public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId)
+        {
+            await _patientRepo.AssignNurseToPatient(patientId, nurseId);
+            return Ok();
+        }
+
+        [HttpPost("{patientId}/remove-nurse/{nurseId}")]
+        public async Task<IActionResult> RemoveNurseFromPatient(int patientId, int nurseId)
+        {
+            await _patientRepo.RemoveNurseFromPatient(patientId, nurseId);
+            return Ok();
+        }
+
+        [HttpGet("{patientId}/nurses")]
+        public async Task<IActionResult> GetNursesByPatientId(int patientId)
+        {
+            var nurses = await _patientRepo.GetNursesByPatientId(patientId);
+            return Ok(nurses);
+        }
         [HttpPost("login")]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var isValid = await _patientRepo.Login(email, password);
-            return Ok(isValid);
+            var id = await _patientRepo.Login(email, password);
+            return Ok(id);
         }
 
         // Read (Get All)

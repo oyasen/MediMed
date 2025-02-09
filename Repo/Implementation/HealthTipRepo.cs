@@ -3,6 +3,7 @@ using MediMed.Data;
 using MediMed.Dto;
 using MediMed.Models;
 using MediMed.Repo.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediMed.Repo.Implementation
 {
@@ -26,15 +27,16 @@ namespace MediMed.Repo.Implementation
         }
 
         // Read (Get All)
-        public List<HealthTip> GetAllHealthTips()
+        public async Task<List<HealthTipDto>> GetAllHealthTips()
         {
-            return _context.HealthTips.ToList();
+            return await _context.HealthTips.Select(h=> _mapper.Map<HealthTipDto>(h)).ToListAsync();
         }
 
         // Read (Get by Id)
-        public async Task<HealthTip?> GetHealthTipById(int id)
+        public async Task<HealthTipDto?> GetHealthTipById(int id)
         {
-            return await _context.HealthTips.FindAsync(id);
+            var healthTip = await _context.HealthTips.FindAsync(id);
+            return _mapper.Map<HealthTipDto>(healthTip);
         }
 
         // Update

@@ -31,21 +31,55 @@ namespace MediMed.Repo.Implementation
         }
 
         // Read (Get All)
-        public async Task<List<Nurse>> GetAllNurses()
+        public async Task<List<NurseDto>> GetAllNurses()
         {
-            return await _context.Nurses.ToListAsync();
+            return await _context.Nurses.Select(n=> _mapper.Map<NurseDto>(n)).ToListAsync();
         }
-        public async Task<bool> Login(string email, string password)
+        public async Task<int> Login(string email, string password)
         {
-            var patient = await _context.Patients
+            var nurse = await _context.Nurses
                 .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
 
-            return patient != null; // Returns true if patient exists, otherwise false
+            return nurse.Id; // Returns true if patient exists, otherwise false
+        }
+        public async Task AssignPatientToNurse(int nurseId, int patientId)
+        {
+            var nursePatient = new NursePatient
+            {
+                NurseId = nurseId,
+                PatientId = patientId
+            };
+
+            _context.NursePatients.Add(nursePatient);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemovePatientFromNurse(int nurseId, int patientId)
+        {
+            var nursePatient = await _context.NursePatients
+                .FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
+
+            if (nursePatient != null)
+            {
+                _context.NursePatients.Remove(nursePatient);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<Patient>> GetPatientsByNurseId(int nurseId)
+        {
+            var patients = await _context.NursePatients
+                .Where(np => np.NurseId == nurseId)
+                .Select(np => np.Patient)
+                .ToListAsync();
+
+            return patients;
         }
         // Read (Get by Id)
-        public async Task<Nurse?> GetNurseById(int id)
+        public async Task<NurseDto?> GetNurseById(int id)
         {
-            return await _context.Nurses.FindAsync(id);
+            var nurse = await _context.Nurses.FindAsync(id);
+            return _mapper.Map<NurseDto>(nurse);
         }
 
         // Update

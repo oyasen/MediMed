@@ -12,5 +12,6 @@
         public string Contact { get; set; } = string.Empty; // Phone number
         public string IDCard { get; set; } = string.Empty; // البطاقه (link)
         public string Location { get; set; } = string.Empty; // Location
+        public ICollection<NursePatient> NursePatients { get; set; } = new List<NursePatient>();
     }
 }

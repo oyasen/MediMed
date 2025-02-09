@@ -27,15 +27,16 @@ namespace MediMed.Repo.Implementation
         }
 
         // Read (Get All)
-        public async Task<List<Patient>> GetAllPatients()
+        public async Task<List<PatientDto>> GetAllPatients()
         {
-            return await _context.Patients.ToListAsync();
+            return await _context.Patients.Select(p=>_mapper.Map<PatientDto>(p)).ToListAsync();
         }
 
         // Read (Get by Id)
-        public async Task<Patient?> GetPatientById(int id)
+        public async Task<PatientDto?> GetPatientById(int id)
         {
-            return await _context.Patients.FindAsync(id);
+            var patient = await _context.Patients.FindAsync(id);
+            return _mapper.Map<PatientDto>(patient);
         }
 
         // Update
@@ -57,12 +58,45 @@ namespace MediMed.Repo.Implementation
 
             await _context.SaveChangesAsync();
         }
-        public async Task<bool> Login(string email, string password)
+        public async Task<int> Login(string email, string password)
         {
             var patient = await _context.Patients
                 .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
 
-            return patient != null; // Returns true if patient exists, otherwise false
+            return patient.Id; // Returns true if patient exists, otherwise false
+        }
+        public async Task AssignNurseToPatient(int patientId, int nurseId)
+        {
+            var nursePatient = new NursePatient
+            {
+                PatientId = patientId,
+                NurseId = nurseId
+            };
+
+            _context.NursePatients.Add(nursePatient);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveNurseFromPatient(int patientId, int nurseId)
+        {
+            var nursePatient = await _context.NursePatients
+                .FirstOrDefaultAsync(np => np.PatientId == patientId && np.NurseId == nurseId);
+
+            if (nursePatient != null)
+            {
+                _context.NursePatients.Remove(nursePatient);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<Nurse>> GetNursesByPatientId(int patientId)
+        {
+            var nurses = await _context.NursePatients
+                .Where(np => np.PatientId == patientId)
+                .Select(np => np.Nurse)
+                .ToListAsync();
+
+            return nurses;
         }
         // Delete
         public async Task DeletePatient(int id)

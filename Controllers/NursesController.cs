@@ -27,11 +27,31 @@ public class NursesController : ControllerBase
         await _nurseRepo.CreateNurse(nurseDto);
         return Created();
     }
+    [HttpPost("{nurseId}/assign-patient/{patientId}")]
+    public async Task<IActionResult> AssignPatientToNurse(int nurseId, int patientId)
+    {
+        await _nurseRepo.AssignPatientToNurse(nurseId, patientId);
+        return Ok();
+    }
+
+    [HttpPost("{nurseId}/remove-patient/{patientId}")]
+    public async Task<IActionResult> RemovePatientFromNurse(int nurseId, int patientId)
+    {
+        await _nurseRepo.RemovePatientFromNurse(nurseId, patientId);
+        return Ok();
+    }
+
+    [HttpGet("{nurseId}/patients")]
+    public async Task<IActionResult> GetPatientsByNurseId(int nurseId)
+    {
+        var patients = await _nurseRepo.GetPatientsByNurseId(nurseId);
+        return Ok(patients);
+    }
     [HttpPost("login")]
     public async Task<IActionResult> Login(string email, string password)
     {
-        var isValid = await _nurseRepo.Login(email, password);
-        return Ok(isValid);
+        var id = await _nurseRepo.Login(email, password);
+        return Ok(id);
     }
 
     // Read (Get All)

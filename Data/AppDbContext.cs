@@ -9,8 +9,24 @@ namespace MediMed.Data
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Nurse> Nurses { get; set; }
         public DbSet<HealthTip> HealthTips { get; set; }
+        public DbSet<NursePatient> NursePatients { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<NursePatient>()
+       .HasKey(np => new { np.NurseId, np.PatientId });
+
+            modelBuilder.Entity<NursePatient>()
+                .HasOne(np => np.Nurse)
+                .WithMany(n => n.NursePatients)
+                .HasForeignKey(np => np.NurseId);
+
+            modelBuilder.Entity<NursePatient>()
+                .HasOne(np => np.Patient)
+                .WithMany(p => p.NursePatients)
+                .HasForeignKey(np => np.PatientId);
+
+            // Seed data (if needed)
+            
             // Seed Nurses
             modelBuilder.Entity<Nurse>().HasData(
                 new Nurse
@@ -97,6 +113,7 @@ namespace MediMed.Data
                     Tip = "Avoid smoking and limit alcohol consumption."
                 }
             );
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

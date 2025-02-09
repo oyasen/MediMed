@@ -30,9 +30,9 @@ public class HealthTipsController : ControllerBase
 
     // Read (Get All)
     [HttpGet]
-    public IActionResult GetAllHealthTips()
+    public async Task<IActionResult> GetAllHealthTips()
     {
-        var healthTips = _repo.GetAllHealthTips();
+        var healthTips = await _repo.GetAllHealthTips();
         return Ok(healthTips);
     }
 

@@ -6,10 +6,13 @@ namespace MediMed.Repo.Interface
     public interface IPatientRepo
     {
         Task CreatePatient(PatientDto patientDto);
-        Task<List<Patient>> GetAllPatients();
-        Task<Patient?> GetPatientById(int id);
+        Task<List<PatientDto>> GetAllPatients();
+        Task<PatientDto?> GetPatientById(int id);
         Task UpdatePatient(int id, PatientDto patientDto);
         Task DeletePatient(int id);
-        Task<bool> Login(string email, string password);
+        Task<int> Login(string email, string password);
+        Task AssignNurseToPatient(int patientId, int nurseId);
+        Task RemoveNurseFromPatient(int patientId, int nurseId);
+        Task<List<Nurse>> GetNursesByPatientId(int patientId);
     }
 }

@@ -15,5 +15,6 @@
         public string CriminalRecordAndIdentification { get; set; } = string.Empty; // فيش و تشبيه (link)
         public string Address { get; set; } = string.Empty;// Address
         public string Location { get; set; } = string.Empty;// Location
+        public ICollection<NursePatient> NursePatients { get; set; } = new List<NursePatient>();
     }
 }
