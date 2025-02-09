@@ -28,6 +28,12 @@ namespace MediMed.Controllers
             await _patientRepo.CreatePatient(patientDto);
             return Created();
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            var isValid = await _patientRepo.Login(email, password);
+            return Ok(isValid);
+        }
 
         // Read (Get All)
         [HttpGet]

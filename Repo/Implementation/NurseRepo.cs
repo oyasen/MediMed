@@ -35,7 +35,13 @@ namespace MediMed.Repo.Implementation
         {
             return await _context.Nurses.ToListAsync();
         }
+        public async Task<bool> Login(string email, string password)
+        {
+            var patient = await _context.Patients
+                .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
 
+            return patient != null; // Returns true if patient exists, otherwise false
+        }
         // Read (Get by Id)
         public async Task<Nurse?> GetNurseById(int id)
         {

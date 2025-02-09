@@ -57,7 +57,13 @@ namespace MediMed.Repo.Implementation
 
             await _context.SaveChangesAsync();
         }
+        public async Task<bool> Login(string email, string password)
+        {
+            var patient = await _context.Patients
+                .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
 
+            return patient != null; // Returns true if patient exists, otherwise false
+        }
         // Delete
         public async Task DeletePatient(int id)
         {

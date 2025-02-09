@@ -27,6 +27,12 @@ public class NursesController : ControllerBase
         await _nurseRepo.CreateNurse(nurseDto);
         return Created();
     }
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(string email, string password)
+    {
+        var isValid = await _nurseRepo.Login(email, password);
+        return Ok(isValid);
+    }
 
     // Read (Get All)
     [HttpGet]

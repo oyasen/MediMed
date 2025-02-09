@@ -10,5 +10,6 @@ namespace MediMed.Repo.Interface
         Task<Patient?> GetPatientById(int id);
         Task UpdatePatient(int id, PatientDto patientDto);
         Task DeletePatient(int id);
+        Task<bool> Login(string email, string password);
     }
 }

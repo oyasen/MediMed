@@ -8,10 +8,10 @@
     public interface INurseRepo
     {
         Task CreateNurse(NurseDto nurseDto);
-        Task<bool> Login(NurseDto nurseDto);
         Task<List<Nurse>> GetAllNurses();
         Task<Nurse?> GetNurseById(int id);
         Task UpdateNurse(int id, NurseDto nurseDto);
         Task DeleteNurse(int id);
+        Task<bool> Login(string email, string password);
     }
 }
