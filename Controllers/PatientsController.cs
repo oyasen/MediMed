@@ -34,8 +34,13 @@ namespace MediMed.Controllers
             await _patientRepo.AssignNurseToPatient(patientId, nurseId, status);
             return Ok();
         }
-
-        [HttpPost("{patientId}/remove-nurse/{nurseId}")]
+        [HttpPut("{patientId}/update-nurse/{nurseId}")]
+        public async Task<IActionResult> UpdateNurseToPatient(int patientId, int nurseId, string status)
+        {
+            await _patientRepo.UpdateNursePatient(patientId, nurseId, status);
+            return Ok();
+        }
+        [HttpDelete("{patientId}/remove-nurse/{nurseId}")]
         public async Task<IActionResult> RemoveNurseFromPatient(int patientId, int nurseId)
         {
             await _patientRepo.RemoveNurseFromPatient(patientId, nurseId);
