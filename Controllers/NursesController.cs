@@ -28,9 +28,9 @@ public class NursesController : ControllerBase
         return Ok(id);
     }
     [HttpPost("{nurseId}/assign-patient/{patientId}")]
-    public async Task<IActionResult> AssignPatientToNurse(int nurseId, int patientId)
+    public async Task<IActionResult> AssignPatientToNurse(int nurseId, int patientId,int newPrice,string status)
     {
-        await _nurseRepo.AssignPatientToNurse(nurseId, patientId);
+        await _nurseRepo.UpdateNursePatient(nurseId, patientId, newPrice,status);
         return Ok();
     }
 

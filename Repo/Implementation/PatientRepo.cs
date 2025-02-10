@@ -66,18 +66,32 @@ namespace MediMed.Repo.Implementation
 
             return patient.Id; // Returns true if patient exists, otherwise false
         }
-        public async Task AssignNurseToPatient(int patientId, int nurseId)
+        public async Task AssignNurseToPatient(int patientId, int nurseId , string status)
         {
             var nursePatient = new NursePatient
             {
                 PatientId = patientId,
-                NurseId = nurseId
+                NurseId = nurseId,
+                Status = status
             };
 
             _context.NursePatients.Add(nursePatient);
             await _context.SaveChangesAsync();
         }
+        public async Task UpdateNursePatient(int nurseId, int patientId, string status)
+        {
+            var nursePatient = await _context.NursePatients
+                .FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
 
+            if (nursePatient == null)
+            {
+                throw new KeyNotFoundException("Assignment not found.");
+            }
+            nursePatient.Status = status;
+
+            _context.NursePatients.Update(nursePatient);
+            await _context.SaveChangesAsync();
+        }
         public async Task RemoveNurseFromPatient(int patientId, int nurseId)
         {
             var nursePatient = await _context.NursePatients

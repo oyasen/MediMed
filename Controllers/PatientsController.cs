@@ -29,9 +29,9 @@ namespace MediMed.Controllers
             return Ok(id);
         }
         [HttpPost("{patientId}/assign-nurse/{nurseId}")]
-        public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId)
+        public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId,string status)
         {
-            await _patientRepo.AssignNurseToPatient(patientId, nurseId);
+            await _patientRepo.AssignNurseToPatient(patientId, nurseId, status);
             return Ok();
         }
 
