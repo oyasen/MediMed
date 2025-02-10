@@ -25,8 +25,8 @@ namespace MediMed.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _patientRepo.CreatePatient(patientDto);
-            return Created();
+            int id = await _patientRepo.CreatePatient(patientDto);
+            return Ok(id);
         }
         [HttpPost("{patientId}/assign-nurse/{nurseId}")]
         public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId)

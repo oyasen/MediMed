@@ -24,8 +24,8 @@ public class NursesController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        await _nurseRepo.CreateNurse(nurseDto);
-        return Created();
+        int id = await _nurseRepo.CreateNurse(nurseDto);
+        return Ok(id);
     }
     [HttpPost("{nurseId}/assign-patient/{patientId}")]
     public async Task<IActionResult> AssignPatientToNurse(int nurseId, int patientId)

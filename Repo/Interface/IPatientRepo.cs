@@ -5,7 +5,7 @@ namespace MediMed.Repo.Interface
 {
     public interface IPatientRepo
     {
-        Task CreatePatient(PatientDto patientDto);
+        Task<int> CreatePatient(PatientDto patientDto);
         Task<List<PatientDto>> GetAllPatients();
         Task<PatientDto?> GetPatientById(int id);
         Task UpdatePatient(int id, PatientDto patientDto);

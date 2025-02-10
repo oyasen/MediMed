@@ -7,7 +7,7 @@
 
     public interface INurseRepo
     {
-        Task CreateNurse(NurseDto nurseDto);
+        Task<int> CreateNurse(NurseDto nurseDto);
         Task<List<NurseDto>> GetAllNurses();
         Task<NurseDto?> GetNurseById(int id);
         Task UpdateNurse(int id, NurseDto nurseDto);
