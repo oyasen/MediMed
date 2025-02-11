@@ -24,11 +24,18 @@ namespace MediMed.Repo.Implementation
         // Create
         public async Task<int> CreateNurse(NurseDto nurseDto)
         {
-            var nurse = _mapper.Map<Nurse>(nurseDto);
-
-            _context.Nurses.Add(nurse);
-            await _context.SaveChangesAsync();
-            return nurse.Id;
+            try
+            {
+                var nurse = _mapper.Map<Nurse>(nurseDto);
+                _context.Nurses.Add(nurse);
+                await _context.SaveChangesAsync();
+                return nurse.Id;
+            }
+            catch
+            (Exception ex)
+            {
+                return 0;
+            }
         }
 
         // Read (Get All)

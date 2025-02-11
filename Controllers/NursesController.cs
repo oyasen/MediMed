@@ -82,7 +82,6 @@ public class NursesController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-
         try
         {
             await _nurseRepo.UpdateNurse(id, nurseDto);
