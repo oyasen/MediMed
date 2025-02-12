@@ -32,7 +32,6 @@ namespace MediMed.Repo.Implementation
                 return nurse.Id;
             }
             catch
-            (Exception ex)
             {
                 return 0;
             }
@@ -47,7 +46,10 @@ namespace MediMed.Repo.Implementation
         {
             var nurse = await _context.Nurses
                 .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
-
+            if(nurse == null)
+            {
+                return 0;
+            }
             return nurse.Id; // Returns true if patient exists, otherwise false
         }
         public async Task UpdateNursePatient(int nurseId, int patientId, int newPrice, string status)
