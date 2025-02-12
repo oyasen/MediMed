@@ -12,7 +12,7 @@
         Task<NurseDto?> GetNurseById(int id);
         Task UpdateNurse(int id, NurseDto nurseDto);
         Task DeleteNurse(int id);
-        Task<int> Login(string email, string password);
+        Task<int> Login(LoginDto loginDto);
         Task UpdateNursePatient(int nurseId, int patientId, int newPrice, string status);
         Task RemovePatientFromNurse(int nurseId, int patientId);
         Task<List<Patient>> GetPatientsByNurseId(int nurseId);

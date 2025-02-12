@@ -83,9 +83,9 @@ namespace MediMed.Controllers
             return Ok(nurses);
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            var id = await _patientRepo.Login(email, password);
+            var id = await _patientRepo.Login(loginDto);
             return Ok(id);
         }
 

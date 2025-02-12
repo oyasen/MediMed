@@ -42,10 +42,10 @@ namespace MediMed.Repo.Implementation
         {
             return await _context.Nurses.Select(n=> _mapper.Map<NurseDto>(n)).ToListAsync();
         }
-        public async Task<int> Login(string email, string password)
+        public async Task<int> Login(LoginDto loginDto)
         {
             var nurse = await _context.Nurses
-                .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
+                .FirstOrDefaultAsync(p => p.Email == loginDto.Email && p.Password == loginDto.Password);
             if(nurse == null)
             {
                 return 0;

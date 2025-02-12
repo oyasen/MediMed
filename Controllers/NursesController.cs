@@ -48,9 +48,9 @@ public class NursesController : ControllerBase
         return Ok(patients);
     }
     [HttpPost("login")]
-    public async Task<IActionResult> Login(string email, string password)
+    public async Task<IActionResult> Login(LoginDto loginDto)
     {
-        var id = await _nurseRepo.Login(email, password);
+        var id = await _nurseRepo.Login(loginDto);
         return Ok(id);
     }
 

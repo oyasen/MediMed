@@ -66,10 +66,10 @@ namespace MediMed.Repo.Implementation
 
             await _context.SaveChangesAsync();
         }
-        public async Task<int> Login(string email, string password)
+        public async Task<int> Login(LoginDto loginDto)
         {
             var patient = await _context.Patients
-                .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
+                .FirstOrDefaultAsync(p => p.Email == loginDto.Email && p.Password == loginDto.Password);
             if(patient == null)
             {
                 return 0;
