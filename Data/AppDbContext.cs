@@ -32,30 +32,22 @@ namespace MediMed.Data
                 new Nurse
                 {
                     Id = 1,
-                    FirstName = "Ahmed",
-                    LastName = "Ali",
-                    LicenseNumber = "RN123456",
+                    FullName = "Ahmed",
                     Contact = "+201234567890",
                     ProfessionalPracticeLicense = "https://example.com/nurse1/professional-license.jpg",
                     GraduationCertificate = "https://example.com/nurse1/graduation-certificate.jpg",
                     IDCard = "https://example.com/nurse1/id-card.jpg",
                     CriminalRecordAndIdentification = "https://example.com/nurse1/criminal-record.jpg",
-                    Address = "123 Main St, Cairo, Egypt",
-                    Location = "Cairo"
                 },
                 new Nurse
                 {
                     Id = 2,
-                    FirstName = "Fatima",
-                    LastName = "Mohamed",
-                    LicenseNumber = "RN654321",
+                    FullName = "Fatima",
                     Contact = "+201098765432",
                     ProfessionalPracticeLicense = "https://example.com/nurse2/professional-license.jpg",
                     GraduationCertificate = "https://example.com/nurse2/graduation-certificate.jpg",
                     IDCard = "https://example.com/nurse2/id-card.jpg",
                     CriminalRecordAndIdentification = "https://example.com/nurse2/criminal-record.jpg",
-                    Address = "456 Elm St, Alexandria, Egypt",
-                    Location = "Alexandria"
                 }
             );
 

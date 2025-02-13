@@ -97,16 +97,12 @@ namespace MediMed.Repo.Implementation
                 throw new Exception("Nurse not found.");
             }
 
-            nurse.FirstName = nurseDto.FirstName;
-            nurse.LastName = nurseDto.LastName;
-            nurse.LicenseNumber = nurseDto.LicenseNumber;
+            nurse.FullName = nurseDto.FullName;
             nurse.Contact = nurseDto.Contact;
             nurse.ProfessionalPracticeLicense = nurseDto.ProfessionalPracticeLicense;
             nurse.GraduationCertificate = nurseDto.GraduationCertificate;
             nurse.IDCard = nurseDto.IDCard;
             nurse.CriminalRecordAndIdentification = nurseDto.CriminalRecordAndIdentification;
-            nurse.Address = nurseDto.Address;
-            nurse.Location = nurseDto.Location;
 
             await _context.SaveChangesAsync();
         }
