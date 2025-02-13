@@ -11,7 +11,7 @@ namespace MediMed.Repo.Interface
         Task UpdatePatient(int id, PatientDto patientDto);
         Task UpdateNursePatient(int nurseId, int patientId, string status);
         Task DeletePatient(int id);
-        Task<int> Login(string email, string password);
+        Task<int> Login(LoginDto loginDto);
         Task AssignNurseToPatient(int patientId, int nurseId,string status);
         Task RemoveNurseFromPatient(int patientId, int nurseId);
         Task<List<Nurse>> GetNursesByPatientId(int patientId);

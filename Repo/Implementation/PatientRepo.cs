@@ -4,6 +4,7 @@ using MediMed.Dto;
 using MediMed.Models;
 using MediMed.Repo.Interface;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MediMed.Repo.Implementation
 {
@@ -20,11 +21,19 @@ namespace MediMed.Repo.Implementation
         // Create
         public async Task<int> CreatePatient(PatientDto patientDto)
         {
-            var patient = _mapper.Map<Patient>(patientDto);
+            try
+            {
+                var patient = _mapper.Map<Patient>(patientDto);
 
-            _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
-            return patient.Id;
+                _context.Patients.Add(patient);
+                await _context.SaveChangesAsync();
+                return patient.Id;
+            }
+            catch
+            {
+                return 0;
+            }
+            
         }
 
         // Read (Get All)
@@ -49,22 +58,23 @@ namespace MediMed.Repo.Implementation
                 throw new Exception("Patient not found.");
             }
 
-            patient.FirstName = patientDto.FirstName;
-            patient.LastName = patientDto.LastName;
+            patient.FullName = patientDto.FullName;
             patient.DateOfBirth = patientDto.DateOfBirth;
             patient.Gender = patientDto.Gender;
             patient.Contact = patientDto.Contact;
             patient.IDCard = patientDto.IDCard;
-            patient.Location = patientDto.Location;
 
             await _context.SaveChangesAsync();
         }
-        public async Task<int> Login(string email, string password)
+        public async Task<int> Login(LoginDto loginDto)
         {
             var patient = await _context.Patients
-                .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
-
-            return patient.Id; // Returns true if patient exists, otherwise false
+                .FirstOrDefaultAsync(p => p.Email == loginDto.Email && p.Password == loginDto.Password);
+            if(patient == null)
+            {
+                return 0;
+            }
+            return patient.Id;
         }
         public async Task AssignNurseToPatient(int patientId, int nurseId , string status)
         {

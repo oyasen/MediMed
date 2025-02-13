@@ -24,11 +24,17 @@ namespace MediMed.Repo.Implementation
         // Create
         public async Task<int> CreateNurse(NurseDto nurseDto)
         {
-            var nurse = _mapper.Map<Nurse>(nurseDto);
-
-            _context.Nurses.Add(nurse);
-            await _context.SaveChangesAsync();
-            return nurse.Id;
+            try
+            {
+                var nurse = _mapper.Map<Nurse>(nurseDto);
+                _context.Nurses.Add(nurse);
+                await _context.SaveChangesAsync();
+                return nurse.Id;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         // Read (Get All)
@@ -36,11 +42,14 @@ namespace MediMed.Repo.Implementation
         {
             return await _context.Nurses.Select(n=> _mapper.Map<NurseDto>(n)).ToListAsync();
         }
-        public async Task<int> Login(string email, string password)
+        public async Task<int> Login(LoginDto loginDto)
         {
             var nurse = await _context.Nurses
-                .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
-
+                .FirstOrDefaultAsync(p => p.Email == loginDto.Email && p.Password == loginDto.Password);
+            if(nurse == null)
+            {
+                return 0;
+            }
             return nurse.Id; // Returns true if patient exists, otherwise false
         }
         public async Task UpdateNursePatient(int nurseId, int patientId, int newPrice, string status)

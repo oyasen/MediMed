@@ -52,30 +52,6 @@ namespace MediMed.Data
             );
 
             // Seed Patients
-            modelBuilder.Entity<Patient>().HasData(
-                new Patient
-                {
-                    Id = 1,
-                    FirstName = "Mohamed",
-                    LastName = "Hassan",
-                    DateOfBirth = new DateTime(1985, 5, 15),
-                    Gender = "Male",
-                    Contact = "+201112223344",
-                    IDCard = "https://example.com/patient1/id-card.jpg",
-                    Location = "Cairo"
-                },
-                new Patient
-                {
-                    Id = 2,
-                    FirstName = "Aisha",
-                    LastName = "Mahmoud",
-                    DateOfBirth = new DateTime(1990, 8, 25),
-                    Gender = "Female",
-                    Contact = "+201122334455",
-                    IDCard = "https://example.com/patient2/id-card.jpg",
-                    Location = "Alexandria"
-                }
-            );
 
             // Seed HealthTips
             modelBuilder.Entity<HealthTip>().HasData(

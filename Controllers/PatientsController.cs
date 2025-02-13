@@ -24,27 +24,56 @@ namespace MediMed.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            int id = await _patientRepo.CreatePatient(patientDto);
-            return Ok(id);
+            try
+            {
+                var id = await _patientRepo.CreatePatient(patientDto);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
         [HttpPost("{patientId}/assign-nurse/{nurseId}")]
         public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId,string status)
         {
-            await _patientRepo.AssignNurseToPatient(patientId, nurseId, status);
-            return Ok();
+            try
+            {
+                await _patientRepo.AssignNurseToPatient(patientId, nurseId, status);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
         [HttpPut("{patientId}/update-nurse/{nurseId}")]
         public async Task<IActionResult> UpdateNurseToPatient(int patientId, int nurseId, string status)
         {
-            await _patientRepo.UpdateNursePatient(patientId, nurseId, status);
-            return Ok();
+            try
+            {
+                await _patientRepo.UpdateNursePatient(patientId, nurseId, status);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("{patientId}/remove-nurse/{nurseId}")]
         public async Task<IActionResult> RemoveNurseFromPatient(int patientId, int nurseId)
         {
-            await _patientRepo.RemoveNurseFromPatient(patientId, nurseId);
-            return Ok();
+            try
+            {
+                await _patientRepo.RemoveNurseFromPatient(patientId, nurseId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{patientId}/nurses")]
@@ -54,9 +83,9 @@ namespace MediMed.Controllers
             return Ok(nurses);
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            var id = await _patientRepo.Login(email, password);
+            var id = await _patientRepo.Login(loginDto);
             return Ok(id);
         }
 
