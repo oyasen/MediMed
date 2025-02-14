@@ -5,8 +5,8 @@ namespace MediMed.Dto
     public class NurseDto
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "First name is required.")]
-        [StringLength(50, ErrorMessage = "First name cannot exceed 50 characters.")]
+        [Required(ErrorMessage = "Full name is required.")]
+        [StringLength(50, ErrorMessage = "Full name cannot exceed 50 characters.")]
         public string FullName { get; set; } = string.Empty;
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
@@ -23,6 +23,9 @@ namespace MediMed.Dto
         [Required(ErrorMessage = "Phone number is required.")]
         [Phone(ErrorMessage = "Invalid phone number.")]
         public string Contact { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Specialaization is required.")]
+        [StringLength(50, ErrorMessage = "Specialaization cannot exceed 50 characters.")]
+        public string Specialaization { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Professional practice license link is required.")]
         [Url(ErrorMessage = "Invalid URL.")]

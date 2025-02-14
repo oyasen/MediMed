@@ -10,11 +10,12 @@
         Task<int> CreateNurse(NurseDto nurseDto);
         Task<List<NurseDto>> GetAllNurses();
         Task<NurseDto?> GetNurseById(int id);
-        Task UpdateNurse(int id, NurseDto nurseDto);
-        Task DeleteNurse(int id);
+        Task<bool> UpdateNurse(int id, NurseDto nurseDto);
+        Task<bool> DeleteNurse(int id);
         Task<int> Login(LoginDto loginDto);
-        Task UpdateNursePatient(int nurseId, int patientId, int newPrice, string status);
-        Task RemovePatientFromNurse(int nurseId, int patientId);
-        Task<List<Patient>> GetPatientsByNurseId(int nurseId);
+        Task<bool> forget(LoginDto loginDto);
+        Task<bool> UpdateNursePatient(int nurseId, int patientId, double newPrice, string status);
+        Task<bool> RemovePatientFromNurse(int nurseId, int patientId);
+        Task<List<NursePatient>> GetPatientsByNurseId(int nurseId);
     }
 }

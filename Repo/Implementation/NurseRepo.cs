@@ -50,9 +50,9 @@ namespace MediMed.Repo.Implementation
             {
                 return 0;
             }
-            return nurse.Id; // Returns true if patient exists, otherwise false
+            return nurse.Id; // Returns id if patient exists, otherwise false
         }
-        public async Task UpdateNursePatient(int nurseId, int patientId, int newPrice, string status)
+        public async Task<bool> UpdateNursePatient(int nurseId, int patientId, double newPrice, string status)
         {
             var nursePatient = await _context.NursePatients
                 .FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
@@ -65,11 +65,11 @@ namespace MediMed.Repo.Implementation
             nursePatient.Price = newPrice; // Update the price or other fields if needed
 
             _context.NursePatients.Update(nursePatient);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
 
 
-        public async Task RemovePatientFromNurse(int nurseId, int patientId)
+        public async Task<bool> RemovePatientFromNurse(int nurseId, int patientId)
         {
             var nursePatient = await _context.NursePatients
                 .FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
@@ -77,15 +77,16 @@ namespace MediMed.Repo.Implementation
             if (nursePatient != null)
             {
                 _context.NursePatients.Remove(nursePatient);
-                await _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync() > 0;
             }
+            return false;
         }
 
-        public async Task<List<Patient>> GetPatientsByNurseId(int nurseId)
+        public async Task<List<NursePatient>> GetPatientsByNurseId(int nurseId)
         {
             var patients = await _context.NursePatients
                 .Where(np => np.NurseId == nurseId)
-                .Select(np => np.Patient)
+                .Include(np => np.Patient)
                 .ToListAsync();
 
             return patients;
@@ -98,7 +99,7 @@ namespace MediMed.Repo.Implementation
         }
 
         // Update
-        public async Task UpdateNurse(int id, NurseDto nurseDto)
+        public async Task<bool> UpdateNurse(int id, NurseDto nurseDto)
         {
             var nurse = await _context.Nurses.FindAsync(id);
             if (nurse == null)
@@ -106,22 +107,31 @@ namespace MediMed.Repo.Implementation
                 throw new Exception("Nurse not found.");
             }
 
-            nurse.FullName = nurseDto.FullName;
-            nurse.Contact = nurseDto.Contact;
-            nurse.ProfessionalPracticeLicense = nurseDto.ProfessionalPracticeLicense;
-            nurse.GraduationCertificate = nurseDto.GraduationCertificate;
-            nurse.IDCard = nurseDto.IDCard;
-            nurse.CriminalRecordAndIdentification = nurseDto.CriminalRecordAndIdentification;
+            nurse = _mapper.Map<Nurse>(nurseDto);
+            nurse.Id = id;
 
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
 
         // Delete
-        public async Task DeleteNurse(int id)
+        public async Task<bool> DeleteNurse(int id)
         {
             var nurse = await _context.Nurses.FindAsync(id) ?? throw new Exception("Nurse not found.");
             _context.Nurses.Remove(nurse);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> forget(LoginDto loginDto) 
+        {
+            var nurse = await _context.Nurses
+                .FirstOrDefaultAsync(p => p.Email == loginDto.Email);
+            if (nurse == null)
+            {
+                return false;
+            }
+            nurse.Password = loginDto.Password;
+            _context.Nurses.Update(nurse);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

@@ -37,33 +37,6 @@ namespace MediMed.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HealthTips");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Tip = "Drink at least 8 glasses of water daily."
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Tip = "Get at least 7-8 hours of sleep every night."
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Tip = "Exercise for at least 30 minutes a day."
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Tip = "Eat a balanced diet with plenty of fruits and vegetables."
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Tip = "Avoid smoking and limit alcohol consumption."
-                        });
                 });
 
             modelBuilder.Entity("MediMed.Models.Nurse", b =>
@@ -73,10 +46,6 @@ namespace MediMed.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contact")
                         .IsRequired()
@@ -90,7 +59,7 @@ namespace MediMed.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -102,18 +71,6 @@ namespace MediMed.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LicenseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -122,43 +79,13 @@ namespace MediMed.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Specialaization")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Nurses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "123 Main St, Cairo, Egypt",
-                            Contact = "+201234567890",
-                            CriminalRecordAndIdentification = "https://example.com/nurse1/criminal-record.jpg",
-                            Email = "",
-                            FirstName = "Ahmed",
-                            GraduationCertificate = "https://example.com/nurse1/graduation-certificate.jpg",
-                            IDCard = "https://example.com/nurse1/id-card.jpg",
-                            LastName = "Ali",
-                            LicenseNumber = "RN123456",
-                            Location = "Cairo",
-                            Password = "",
-                            ProfessionalPracticeLicense = "https://example.com/nurse1/professional-license.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "456 Elm St, Alexandria, Egypt",
-                            Contact = "+201098765432",
-                            CriminalRecordAndIdentification = "https://example.com/nurse2/criminal-record.jpg",
-                            Email = "",
-                            FirstName = "Fatima",
-                            GraduationCertificate = "https://example.com/nurse2/graduation-certificate.jpg",
-                            IDCard = "https://example.com/nurse2/id-card.jpg",
-                            LastName = "Mohamed",
-                            LicenseNumber = "RN654321",
-                            Location = "Alexandria",
-                            Password = "",
-                            ProfessionalPracticeLicense = "https://example.com/nurse2/professional-license.jpg"
-                        });
                 });
 
             modelBuilder.Entity("MediMed.Models.NursePatient", b =>
@@ -169,8 +96,8 @@ namespace MediMed.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Price")
-                        .HasColumnType("int");
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
 
                     b.Property<string>("Status")
                         .IsRequired()

@@ -42,7 +42,6 @@ namespace MediMed.Repo.Implementation
             return await _context.Patients.Select(p=>_mapper.Map<PatientDto>(p)).ToListAsync();
         }
 
-        // Read (Get by Id)
         public async Task<PatientDto?> GetPatientById(int id)
         {
             var patient = await _context.Patients.FindAsync(id);
@@ -50,7 +49,7 @@ namespace MediMed.Repo.Implementation
         }
 
         // Update
-        public async Task UpdatePatient(int id, PatientDto patientDto)
+        public async Task<bool> UpdatePatient(int id, PatientDto patientDto)
         {
             var patient = await _context.Patients.FindAsync(id);
             if (patient == null)
@@ -58,13 +57,9 @@ namespace MediMed.Repo.Implementation
                 throw new Exception("Patient not found.");
             }
 
-            patient.FullName = patientDto.FullName;
-            patient.DateOfBirth = patientDto.DateOfBirth;
-            patient.Gender = patientDto.Gender;
-            patient.Contact = patientDto.Contact;
-            patient.IDCard = patientDto.IDCard;
-
-            await _context.SaveChangesAsync();
+            patient = _mapper.Map<Patient>(patientDto);
+            patient.Id = id;
+            return await _context.SaveChangesAsync() > 0;
         }
         public async Task<int> Login(LoginDto loginDto)
         {
@@ -76,7 +71,7 @@ namespace MediMed.Repo.Implementation
             }
             return patient.Id;
         }
-        public async Task AssignNurseToPatient(int patientId, int nurseId , string status)
+        public async Task<bool> AssignNurseToPatient(int patientId, int nurseId , string status)
         {
             var nursePatient = new NursePatient
             {
@@ -86,9 +81,9 @@ namespace MediMed.Repo.Implementation
             };
 
             _context.NursePatients.Add(nursePatient);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
-        public async Task UpdateNursePatient(int nurseId, int patientId, string status)
+        public async Task<bool> UpdateNursePatient(int nurseId, int patientId, string status)
         {
             var nursePatient = await _context.NursePatients
                 .FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
@@ -100,9 +95,9 @@ namespace MediMed.Repo.Implementation
             nursePatient.Status = status;
 
             _context.NursePatients.Update(nursePatient);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
-        public async Task RemoveNurseFromPatient(int patientId, int nurseId)
+        public async Task<bool> RemoveNurseFromPatient(int patientId, int nurseId)
         {
             var nursePatient = await _context.NursePatients
                 .FirstOrDefaultAsync(np => np.PatientId == patientId && np.NurseId == nurseId);
@@ -110,21 +105,22 @@ namespace MediMed.Repo.Implementation
             if (nursePatient != null)
             {
                 _context.NursePatients.Remove(nursePatient);
-                await _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync() > 0;
             }
+            return false;
         }
 
-        public async Task<List<Nurse>> GetNursesByPatientId(int patientId)
+        public async Task<List<NursePatient>> GetNursesByPatientId(int patientId)
         {
             var nurses = await _context.NursePatients
                 .Where(np => np.PatientId == patientId)
-                .Select(np => np.Nurse)
+                .Include(np => np.Nurse)
                 .ToListAsync();
 
             return nurses;
         }
         // Delete
-        public async Task DeletePatient(int id)
+        public async Task<bool> DeletePatient(int id)
         {
             var patient = await _context.Patients.FindAsync(id);
             if (patient == null)
@@ -133,7 +129,19 @@ namespace MediMed.Repo.Implementation
             }
 
             _context.Patients.Remove(patient);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> forget(LoginDto loginDto)
+        {
+            var patient = await _context.Patients
+                .FirstOrDefaultAsync(p => p.Email == loginDto.Email);
+            if (patient == null)
+            {
+                return false;
+            }
+            patient.Password = loginDto.Password;
+            _context.Patients.Update(patient);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

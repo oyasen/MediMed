@@ -53,7 +53,12 @@ public class NursesController : ControllerBase
         var id = await _nurseRepo.Login(loginDto);
         return Ok(id);
     }
-
+    [HttpPost("forget")]
+    public async Task<IActionResult> Forget(LoginDto loginDto)
+    {
+        var updated = await _nurseRepo.forget(loginDto);
+        return Ok(updated);
+    }
     // Read (Get All)
     [HttpGet]
     public async Task<IActionResult> GetAllNurses()

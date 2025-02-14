@@ -1,4 +1,5 @@
 ﻿using MediMed.Dto;
+using MediMed.Repo.Implementation;
 using MediMed.Repo.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -88,7 +89,12 @@ namespace MediMed.Controllers
             var id = await _patientRepo.Login(loginDto);
             return Ok(id);
         }
-
+        [HttpPost("forget")]
+        public async Task<IActionResult> Forget(LoginDto loginDto)
+        {
+            var updated = await _patientRepo.forget(loginDto);
+            return Ok(updated);
+        }
         // Read (Get All)
         [HttpGet]
         public async Task<IActionResult> GetAllPatients()
