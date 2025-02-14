@@ -1,9 +1,7 @@
 using MediMed.Data;
-using MediMed.Dto;
 using MediMed.Repo.Implementation;
 using MediMed.Repo.Interface;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +19,13 @@ builder.Services.AddScoped<IPatientRepo,PatientRepo>();
 
 var app = builder.Build();
 
+app.UseCors(builder =>
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
