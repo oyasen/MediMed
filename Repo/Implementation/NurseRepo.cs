@@ -107,9 +107,17 @@ namespace MediMed.Repo.Implementation
                 throw new Exception("Nurse not found.");
             }
 
-            nurse = _mapper.Map<Nurse>(nurseDto);
-            nurse.Id = id;
+            nurse.FullName = nurseDto.FullName;
+            nurse.Email = nurseDto.Email;
+            nurse.Password = nurseDto.Password;
+            nurse.Contact = nurseDto.Contact;
+            nurse.Specialaization = nurseDto.Specialaization;
+            nurse.ProfessionalPracticeLicense = nurseDto.ProfessionalPracticeLicense;
+            nurse.GraduationCertificate = nurseDto.GraduationCertificate;
+            nurse.IDCard = nurseDto.IDCard;
+            nurse.CriminalRecordAndIdentification = nurseDto.CriminalRecordAndIdentification;
 
+            _context.Nurses.Update(nurse);
             return await _context.SaveChangesAsync() > 0;
         }
 

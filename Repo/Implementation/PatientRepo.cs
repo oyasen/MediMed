@@ -57,8 +57,16 @@ namespace MediMed.Repo.Implementation
                 throw new Exception("Patient not found.");
             }
 
-            patient = _mapper.Map<Patient>(patientDto);
-            patient.Id = id;
+            patient.FullName = patientDto.FullName;
+            patient.Email = patientDto.Email;
+            patient.Password = patientDto.Password;
+            patient.DateOfBirth = patientDto.DateOfBirth;
+            patient.Gender = patientDto.Gender;
+            patient.Contact = patientDto.Contact;
+            patient.IDCard = patientDto.IDCard;
+
+
+            _context.Patients.Update(patient);
             return await _context.SaveChangesAsync() > 0;
         }
         public async Task<int> Login(LoginDto loginDto)

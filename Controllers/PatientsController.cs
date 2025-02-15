@@ -126,8 +126,8 @@ namespace MediMed.Controllers
 
             try
             {
-                await _patientRepo.UpdatePatient(id, patientDto);
-                return Accepted();
+                var updated = await _patientRepo.UpdatePatient(id, patientDto);
+                return Accepted(updated);
             }
             catch (Exception ex)
             {
