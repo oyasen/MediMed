@@ -15,6 +15,6 @@ namespace MediMed.Repo.Interface
         Task<bool> forget(LoginDto loginDto);
         Task<bool> AssignNurseToPatient(int patientId, int nurseId,string status);
         Task<bool> RemoveNurseFromPatient(int patientId, int nurseId);
-        Task<List<NursePatient>> GetNursesByPatientId(int patientId);
+        Task<List<NursePatientDto>> GetNursesByPatientId(int patientId);
     }
 }

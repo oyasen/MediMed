@@ -16,6 +16,6 @@
         Task<bool> forget(LoginDto loginDto);
         Task<bool> UpdateNursePatient(int nurseId, int patientId, double newPrice, string status);
         Task<bool> RemovePatientFromNurse(int nurseId, int patientId);
-        Task<List<NursePatient>> GetPatientsByNurseId(int nurseId);
+        Task<List<NursePatientDto>> GetPatientsByNurseId(int nurseId);
     }
 }

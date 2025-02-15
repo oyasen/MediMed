@@ -17,5 +17,8 @@ public class MappingProfile : Profile
         // Patient mappings
         CreateMap<PatientDto, Patient>();
         CreateMap<Patient, PatientDto>();
+
+        CreateMap<NursePatient, NursePatientDto>();
+        CreateMap<NursePatientDto, NursePatient>();
     }
 }

@@ -82,11 +82,11 @@ namespace MediMed.Repo.Implementation
             return false;
         }
 
-        public async Task<List<NursePatient>> GetPatientsByNurseId(int nurseId)
+        public async Task<List<NursePatientDto>> GetPatientsByNurseId(int nurseId)
         {
             var patients = await _context.NursePatients
                 .Where(np => np.NurseId == nurseId)
-                .Include(np => np.Patient)
+                .Include(np => np.Patient).Select(np => _mapper.Map<NursePatientDto>(np))
                 .ToListAsync();
 
             return patients;
