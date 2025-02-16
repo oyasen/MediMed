@@ -30,6 +30,7 @@ namespace MediMed.Controllers
             int id = await _nurserepo.CreateNurse(nurseDto);
             return Ok(id);
         }
+        [HttpPut("UpdateNurse/{id}")]
         public async Task<IActionResult> UpdateNurse(int id, bool approved, string? message)
         {
             if (!ModelState.IsValid)
@@ -46,7 +47,7 @@ namespace MediMed.Controllers
                 return NotFound(ex.Message);
             }
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteNurse/{id}")]
         public async Task<IActionResult> DeleteNurse(int id)
         {
             try
@@ -59,7 +60,7 @@ namespace MediMed.Controllers
                 return NotFound(ex.Message);
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("GetNurse/{id}")]
         public async Task<IActionResult> GetNurseById(int id)
         {
             var nurse = await _nurserepo.GetNurseById(id);
@@ -69,7 +70,7 @@ namespace MediMed.Controllers
             }
             return Ok(nurse);
         }
-        [HttpGet]
+        [HttpGet("GetNurses")]
         public async Task<IActionResult> GetAllNurses()
         {
             var nurses = await _nurserepo.GetAllNurses();
