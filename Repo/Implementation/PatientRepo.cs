@@ -91,10 +91,9 @@ namespace MediMed.Repo.Implementation
             _context.NursePatients.Add(nursePatient);
             return await _context.SaveChangesAsync() > 0;
         }
-        public async Task<bool> UpdateNursePatient(int nurseId, int patientId, string status)
+        public async Task<bool> UpdateNursePatient(int patientId, int nurseId , string status)
         {
-            var nursePatient = await _context.NursePatients
-                .FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
+            var nursePatient = await _context.NursePatients.FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
 
             if (nursePatient == null)
             {

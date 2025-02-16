@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IHealthTipRepo,HealthTipRepo>();
 builder.Services.AddScoped<INurseRepo,NurseRepo>();
 builder.Services.AddScoped<IPatientRepo,PatientRepo>();
+builder.Services.AddScoped<IAdminRepo,AdminRepo>();
 
 var app = builder.Build();
 

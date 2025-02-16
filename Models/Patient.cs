@@ -6,7 +6,7 @@
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
         public string Gender { get; set; } = string.Empty;
         public string Contact { get; set; } = string.Empty; // Phone number
         public string IDCard { get; set; } = string.Empty; // البطاقه (link)

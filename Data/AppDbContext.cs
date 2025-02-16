@@ -9,6 +9,7 @@ namespace MediMed.Data
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Nurse> Nurses { get; set; }
         public DbSet<HealthTip> HealthTips { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<NursePatient> NursePatients { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

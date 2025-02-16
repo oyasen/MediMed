@@ -22,7 +22,7 @@ namespace MediMed.Dto
 
         [Required(ErrorMessage = "Date of birth is required.")]
         [DataType(DataType.Date)]
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
 
         [StringLength(10, ErrorMessage = "Gender cannot exceed 10 characters.")]
         public string Gender { get; set; } = string.Empty;

@@ -29,7 +29,7 @@ public class NursesController : ControllerBase
     }
     [HttpPut("{nurseId}/update-patient/{patientId}")]
     public async Task<IActionResult> UpdatePatientToNurse(int nurseId, int patientId,int newPrice,string status)
-    {
+    { 
         await _nurseRepo.UpdateNursePatient(nurseId, patientId, newPrice,status);
         return Ok();
     }
