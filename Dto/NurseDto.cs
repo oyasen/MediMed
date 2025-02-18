@@ -26,6 +26,7 @@ namespace MediMed.Dto
         [Required(ErrorMessage = "Specialaization is required.")]
         [StringLength(50, ErrorMessage = "Specialaization cannot exceed 50 characters.")]
         public string Specialaization { get; set; } = string.Empty;
+
         [Required(ErrorMessage = "Location is required.")]
         public string Location { get; set; } = string.Empty;
         [Required(ErrorMessage = "Professional practice license link is required.")]
@@ -43,5 +44,8 @@ namespace MediMed.Dto
         [Required(ErrorMessage = "Criminal record and identification link are required.")]
         [Url(ErrorMessage = "Invalid URL.")]
         public string CriminalRecordAndIdentification { get; set; } = string.Empty; // فيش و تشبيه (link)
+        public string Approved { get; set; } = "Processing";
+        [StringLength(50, ErrorMessage = "Message cannot exceed 50 characters.")]
+        public string Message { get; set; } = string.Empty;
     }
 }
