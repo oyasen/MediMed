@@ -8,8 +8,9 @@
         public string Password { get; set; } = string.Empty;
         public string Contact { get; set; } = string.Empty; // Phone number
         public string Specialaization { get; set; } = string.Empty;
-        public bool Approved { get; set; } = false;
-        public string? Message { get; set; } = string.Empty;
+        public string Approved { get; set; } = "Processing";
+        public string Message { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
         public string ProfessionalPracticeLicense { get; set; } = string.Empty; // شهاده مزاوله المهنه (link)
         public string GraduationCertificate { get; set; } = string.Empty; // شهاده التخرج (link)
         public string IDCard { get; set; } = string.Empty;// البطاقه (link)

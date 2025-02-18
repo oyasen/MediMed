@@ -19,6 +19,12 @@ namespace MediMed.Controllers
             _repo = repo;
             _nurserepo = nurseRepo;
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            var id = await _repo.Login(loginDto);
+            return Ok(id);
+        }
         [HttpPost("CreateNurse")]
         public async Task<IActionResult> CreateNurse(NurseDto nurseDto)
         {

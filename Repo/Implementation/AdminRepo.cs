@@ -77,11 +77,21 @@ namespace MediMed.Repo.Implementation
             {
                 throw new Exception("Nurse not found.");
             }
-            nurse.Approved = approved;
-            nurse.Message = message;
+            nurse.Approved = approved?"Accepted" : "Declined";
+            nurse.Message = message??"";
 
             _context.Nurses.Update(nurse);
             return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<int> Login(LoginDto loginDto)
+        {
+            var admin = await _context.Admins
+                .FirstOrDefaultAsync(p => p.Email == loginDto.Email && p.Password == loginDto.Password);
+            if (admin == null)
+            {
+                return 0;
+            }
+            return admin.Id; 
         }
     }
 }

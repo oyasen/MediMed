@@ -26,7 +26,8 @@ namespace MediMed.Dto
         [Required(ErrorMessage = "Specialaization is required.")]
         [StringLength(50, ErrorMessage = "Specialaization cannot exceed 50 characters.")]
         public string Specialaization { get; set; } = string.Empty;
-
+        [Required(ErrorMessage = "Location is required.")]
+        public string Location { get; set; } = string.Empty;
         [Required(ErrorMessage = "Professional practice license link is required.")]
         [Url(ErrorMessage = "Invalid URL.")]
         public string ProfessionalPracticeLicense { get; set; } = string.Empty; // شهاده مزاوله المهنه (link)
