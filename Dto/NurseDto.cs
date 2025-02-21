@@ -5,12 +5,17 @@ namespace MediMed.Dto
     public class NurseDto
     {
         public int Id { get; set; }
+
+
         [Required(ErrorMessage = "Full name is required.")]
         [StringLength(50, ErrorMessage = "Full name cannot exceed 50 characters.")]
         public string FullName { get; set; } = string.Empty;
+
+
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
-        public string Email { get; set; } = string.Empty; // New field
+        public string Email { get; set; } = string.Empty; 
+
 
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(100, ErrorMessage = "Password cannot exceed 100 characters.")]
@@ -20,31 +25,63 @@ namespace MediMed.Dto
     )]
         public string Password { get; set; } = string.Empty;
 
+
         [Required(ErrorMessage = "Phone number is required.")]
         [Phone(ErrorMessage = "Invalid phone number.")]
         public string Contact { get; set; } = string.Empty;
+
+
+        [Required(ErrorMessage = "Date of birth is required.")]
+        [DataType(DataType.Date)]
+        public DateOnly DateOfBirth { get; set; }
+
+
+        [StringLength(10, ErrorMessage = "Gender cannot exceed 10 characters.")]
+        public string Gender { get; set; } = string.Empty;
+
+
         [Required(ErrorMessage = "Specialaization is required.")]
         [StringLength(50, ErrorMessage = "Specialaization cannot exceed 50 characters.")]
         public string Specialaization { get; set; } = string.Empty;
 
+
         [Required(ErrorMessage = "Location is required.")]
         public string Location { get; set; } = string.Empty;
+
+
         [Required(ErrorMessage = "Professional practice license link is required.")]
         [Url(ErrorMessage = "Invalid URL.")]
+        [DataType(DataType.ImageUrl, ErrorMessage = "Invalid Image.")]
         public string ProfessionalPracticeLicense { get; set; } = string.Empty; // شهاده مزاوله المهنه (link)
+
 
         [Required(ErrorMessage = "Graduation certificate link is required.")]
         [Url(ErrorMessage = "Invalid URL.")]
+        [DataType(DataType.ImageUrl,ErrorMessage = "Invalid Image.")]
         public string GraduationCertificate { get; set; } = string.Empty; // شهاده التخرج (link)
+
 
         [Required(ErrorMessage = "ID card link is required.")]
         [Url(ErrorMessage = "Invalid URL.")]
+        [DataType(DataType.ImageUrl, ErrorMessage = "Invalid Image.")]
         public string IDCard { get; set; } = string.Empty; // البطاقه (link)
+
+
+        [Required(ErrorMessage = "PersonalPicture link is required.")]
+        [Url(ErrorMessage = "Invalid URL.")]
+        [DataType(DataType.ImageUrl, ErrorMessage = "Invalid Image.")]
+        public string PersonalPicture { get; set; } = string.Empty;
+
+
 
         [Required(ErrorMessage = "Criminal record and identification link are required.")]
         [Url(ErrorMessage = "Invalid URL.")]
+        [DataType(DataType.ImageUrl, ErrorMessage = "Invalid Image.")]
         public string CriminalRecordAndIdentification { get; set; } = string.Empty; // فيش و تشبيه (link)
+
+
         public string Approved { get; set; } = "Processing";
+
         [StringLength(50, ErrorMessage = "Message cannot exceed 50 characters.")]
         public string Message { get; set; } = string.Empty;
     }

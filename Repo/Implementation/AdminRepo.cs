@@ -83,6 +83,19 @@ namespace MediMed.Repo.Implementation
             _context.Nurses.Update(nurse);
             return await _context.SaveChangesAsync() > 0;
         }
+        public async Task<bool> UpdatePatient(int id, bool approved, string? message)
+        {
+            var nurse = await _context.Patients.FindAsync(id);
+            if (nurse == null)
+            {
+                throw new Exception("Nurse not found.");
+            }
+            nurse.Approved = approved ? "Accepted" : "Declined";
+            nurse.Message = message ?? "";
+
+            _context.Patients.Update(nurse);
+            return await _context.SaveChangesAsync() > 0;
+        }
         public async Task<int> Login(LoginDto loginDto)
         {
             var admin = await _context.Admins

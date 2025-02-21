@@ -10,6 +10,7 @@ namespace MediMed.Repo.Interface
         Task<Admin?> GetAdminById(int id);
         Task UpdateAdmin(int id, Admin admin);
         Task<bool> UpdateNurse(int id, bool approved , string? message);
+        Task<bool> UpdatePatient(int id, bool approved , string? message);
         Task DeleteAdmin(int id);
         Task<int> Login(LoginDto loginDto);
     }

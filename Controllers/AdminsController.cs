@@ -13,11 +13,13 @@ namespace MediMed.Controllers
     {
         private readonly IAdminRepo _repo;
         private readonly INurseRepo _nurserepo;
+        private readonly IPatientRepo _patientrepo;
 
-        public AdminsController(IAdminRepo repo,INurseRepo nurseRepo)
+        public AdminsController(IAdminRepo repo,INurseRepo nurseRepo, IPatientRepo patientrepo)
         {
             _repo = repo;
             _nurserepo = nurseRepo;
+            _patientrepo = patientrepo;
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
@@ -53,6 +55,23 @@ namespace MediMed.Controllers
                 return NotFound(ex.Message);
             }
         }
+        [HttpPut("UpdatePatient/{id}")]
+        public async Task<IActionResult> UpdatePatient(int id, bool approved, string? message)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                await _repo.UpdatePatient(id, approved, message);
+                return Accepted();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
         [HttpDelete("DeleteNurse/{id}")]
         public async Task<IActionResult> DeleteNurse(int id)
         {
@@ -81,6 +100,22 @@ namespace MediMed.Controllers
         {
             var nurses = await _nurserepo.GetAllNurses();
             return Ok(nurses);
+        }
+        [HttpGet("GetPatient/{id}")]
+        public async Task<IActionResult> GetPatientById(int id)
+        {
+            var patient = await _patientrepo.GetPatientById(id);
+            if (patient == null)
+            {
+                return NotFound("Patient not found.");
+            }
+            return Ok(patient);
+        }
+        [HttpGet("GetPatients")]
+        public async Task<IActionResult> GetAllPatients()
+        {
+            var patients = await _patientrepo.GetAllPatients();
+            return Ok(patients);
         }
         // Create
         [HttpPost]

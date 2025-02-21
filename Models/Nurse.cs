@@ -11,6 +11,9 @@
         public string Approved { get; set; } = "Processing";
         public string Message { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
+        public DateOnly DateOfBirth { get; set; }
+        public string Gender { get; set; } = string.Empty;
+        public string PersonalPicture { get; set; } = string.Empty;
         public string ProfessionalPracticeLicense { get; set; } = string.Empty; // شهاده مزاوله المهنه (link)
         public string GraduationCertificate { get; set; } = string.Empty; // شهاده التخرج (link)
         public string IDCard { get; set; } = string.Empty;// البطاقه (link)
