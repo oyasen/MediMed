@@ -64,11 +64,14 @@ namespace MediMed.Repo.Implementation
             patient.Gender = patientDto.Gender;
             patient.Contact = patientDto.Contact;
             patient.IDCard = patientDto.IDCard;
-
+            patient.PersonalPicture = patientDto.PersonalPicture;
+            patient.Approved = patientDto.Approved;
+            patient.Message = patientDto.Message;
 
             _context.Patients.Update(patient);
             return await _context.SaveChangesAsync() > 0;
         }
+
         public async Task<int> Login(LoginDto loginDto)
         {
             var patient = await _context.Patients

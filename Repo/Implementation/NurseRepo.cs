@@ -115,11 +115,18 @@ namespace MediMed.Repo.Implementation
             nurse.ProfessionalPracticeLicense = nurseDto.ProfessionalPracticeLicense;
             nurse.GraduationCertificate = nurseDto.GraduationCertificate;
             nurse.IDCard = nurseDto.IDCard;
-            nurse.CriminalRecordAndIdentification = nurseDto.CriminalRecordAndIdentification;
+            nurse.CriminalRecordAndIdentification = nurseDto.CriminalRecordAndIdentification
+            nurse.Approved = nurseDto.Approved;
+            nurse.Message = nurseDto.Message;
+            nurse.Location = nurseDto.Location;
+            nurse.DateOfBirth = nurseDto.DateOfBirth;
+            nurse.Gender = nurseDto.Gender;
+            nurse.PersonalPicture = nurseDto.PersonalPicture;
 
             _context.Nurses.Update(nurse);
             return await _context.SaveChangesAsync() > 0;
         }
+
 
         // Delete
         public async Task<bool> DeleteNurse(int id)
