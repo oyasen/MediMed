@@ -17,8 +17,6 @@ namespace MediMed.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<NursePatient>()
-       .HasKey(np => new { np.NurseId, np.PatientId });
 
             modelBuilder.Entity<NursePatient>()
                 .HasOne(np => np.Nurse)

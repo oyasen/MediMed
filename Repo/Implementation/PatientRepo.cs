@@ -84,6 +84,11 @@ namespace MediMed.Repo.Implementation
         }
         public async Task<bool> AssignNurseToPatient(int patientId, int nurseId , string status)
         {
+            var patientNurses = await _context.NursePatients.AnyAsync(np => np.NurseId == nurseId && np.PatientId == patientId && np.Status != "Completed");
+            if(patientNurses)
+            {
+                throw new Exception("You are already with contact with this nurse");
+            }
             var nursePatient = new NursePatient
             {
                 PatientId = patientId,
@@ -94,9 +99,9 @@ namespace MediMed.Repo.Implementation
             _context.NursePatients.Add(nursePatient);
             return await _context.SaveChangesAsync() > 0;
         }
-        public async Task<bool> UpdateNursePatient(int patientId, int nurseId , string status)
+        public async Task<bool> UpdateNursePatient(int id , string status)
         {
-            var nursePatient = await _context.NursePatients.FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
+            var nursePatient = await _context.NursePatients.FirstOrDefaultAsync(np => np.Id == id);
 
             if (nursePatient == null)
             {

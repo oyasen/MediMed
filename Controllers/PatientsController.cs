@@ -51,11 +51,11 @@ namespace MediMed.Controllers
             
         }
         [HttpPut("{patientId}/update-nurse/{nurseId}")]
-        public async Task<IActionResult> UpdateNurseToPatient(int patientId, int nurseId, string status)
+        public async Task<IActionResult> UpdateNurseToPatient(int Id, string status)
         {
             try
             {
-                await _patientRepo.UpdateNursePatient(patientId, nurseId, status);
+                await _patientRepo.UpdateNursePatient(Id, status);
                 return Ok();
             }
             catch (Exception ex)

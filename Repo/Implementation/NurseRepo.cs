@@ -52,10 +52,10 @@ namespace MediMed.Repo.Implementation
             }
             return nurse.Id; // Returns id if patient exists, otherwise false
         }
-        public async Task<bool> UpdateNursePatient(int nurseId, int patientId, double newPrice, string status)
+        public async Task<bool> UpdateNursePatient(int id, double newPrice, string status)
         {
             var nursePatient = await _context.NursePatients
-                .FirstOrDefaultAsync(np => np.NurseId == nurseId && np.PatientId == patientId);
+                .FirstOrDefaultAsync(np => np.Id == id);
 
             if (nursePatient == null)
             {

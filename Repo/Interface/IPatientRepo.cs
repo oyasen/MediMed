@@ -9,7 +9,7 @@ namespace MediMed.Repo.Interface
         Task<List<PatientDto>> GetAllPatients();
         Task<PatientDto?> GetPatientById(int id);
         Task<bool> UpdatePatient(int id, PatientDto patientDto);
-        Task<bool> UpdateNursePatient(int patientId, int  nurseId, string status);
+        Task<bool> UpdateNursePatient(int Id, string status);
         Task<bool> DeletePatient(int id);
         Task<int> Login(LoginDto loginDto);
         Task<bool> forget(LoginDto loginDto);

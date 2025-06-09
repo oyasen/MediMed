@@ -14,7 +14,7 @@
         Task<bool> DeleteNurse(int id);
         Task<int> Login(LoginDto loginDto);
         Task<bool> forget(LoginDto loginDto);
-        Task<bool> UpdateNursePatient(int nurseId, int patientId, double newPrice, string status);
+        Task<bool> UpdateNursePatient(int Id, double newPrice, string status);
         Task<bool> RemovePatientFromNurse(int nurseId, int patientId);
         Task<List<NursePatientDto>> GetPatientsByNurseId(int nurseId);
     }
