@@ -36,7 +36,7 @@ namespace MediMed.Controllers
             }
             
         }
-        [HttpPost("{patientId}/assign-nurse/{nurseId}")]
+        [HttpPost("assign-nurse/{id}")]
         public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId,string status)
         {
             try
@@ -50,7 +50,7 @@ namespace MediMed.Controllers
             }
             
         }
-        [HttpPut("{patientId}/update-nurse/{nurseId}")]
+        [HttpPut("update-nurse/{id}")]
         public async Task<IActionResult> UpdateNurseToPatient(int Id, string status)
         {
             try
@@ -63,12 +63,12 @@ namespace MediMed.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("{patientId}/remove-nurse/{nurseId}")]
-        public async Task<IActionResult> RemoveNurseFromPatient(int patientId, int nurseId)
+        [HttpDelete("remove-nurse/{Id}")]
+        public async Task<IActionResult> RemoveNurseFromPatient(int Id)
         {
             try
             {
-                await _patientRepo.RemoveNurseFromPatient(patientId, nurseId);
+                await _patientRepo.RemoveNurseFromPatient(Id);
                 return Ok();
             }
             catch (Exception ex)

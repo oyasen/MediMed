@@ -27,17 +27,17 @@ public class NursesController : ControllerBase
         int id = await _nurseRepo.CreateNurse(nurseDto);
         return Ok(id);
     }
-    [HttpPut("{nurseId}/update-patient/{patientId}")]
+    [HttpPut("update-patient/{Id}")]
     public async Task<IActionResult> UpdatePatientToNurse(int Id,int newPrice,string status)
     { 
         await _nurseRepo.UpdateNursePatient(Id, newPrice,status);
         return Ok();
     }
 
-    [HttpDelete("{nurseId}/remove-patient/{patientId}")]
-    public async Task<IActionResult> RemovePatientFromNurse(int nurseId, int patientId)
+    [HttpDelete("remove-patient/{Id}")]
+    public async Task<IActionResult> RemovePatientFromNurse(int Id)
     {
-        await _nurseRepo.RemovePatientFromNurse(nurseId, patientId);
+        await _nurseRepo.RemovePatientFromNurse(Id);
         return Ok();
     }
 
