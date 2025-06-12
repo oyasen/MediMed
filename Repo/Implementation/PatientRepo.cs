@@ -82,7 +82,7 @@ namespace MediMed.Repo.Implementation
             }
             return patient.Id;
         }
-        public async Task<bool> AssignNurseToPatient(int patientId, int nurseId , string status)
+        public async Task<bool> AssignNurseToPatient(int patientId, int nurseId , string status,string description)
         {
             var patientNurses = await _context.NursePatients.AnyAsync(np => np.NurseId == nurseId && np.PatientId == patientId && np.Status != "Completed");
             if(patientNurses)
@@ -93,7 +93,8 @@ namespace MediMed.Repo.Implementation
             {
                 PatientId = patientId,
                 NurseId = nurseId,
-                Status = status
+                Status = status,
+                Description = description,
             };
 
             _context.NursePatients.Add(nursePatient);

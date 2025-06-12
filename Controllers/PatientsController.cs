@@ -36,12 +36,12 @@ namespace MediMed.Controllers
             }
             
         }
-        [HttpPost("assign-nurse/{id}")]
-        public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId,string status)
+        [HttpPost("{patientId}/assign-nurse/{nurseId}")]
+        public async Task<IActionResult> AssignNurseToPatient(int patientId, int nurseId,string status,string description)
         {
             try
             {
-                await _patientRepo.AssignNurseToPatient(patientId, nurseId, status);
+                await _patientRepo.AssignNurseToPatient(patientId, nurseId, status,description);
                 return Ok();
             }
             catch (Exception ex)

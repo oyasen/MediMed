@@ -1,5 +1,8 @@
-﻿namespace MediMed.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MediMed.Models
 {
+    [Index(nameof(Email), IsUnique = true)]
     public class Nurse
     {
         public int Id { get; set; }

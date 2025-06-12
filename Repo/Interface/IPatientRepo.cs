@@ -13,7 +13,7 @@ namespace MediMed.Repo.Interface
         Task<bool> DeletePatient(int id);
         Task<int> Login(LoginDto loginDto);
         Task<bool> forget(LoginDto loginDto);
-        Task<bool> AssignNurseToPatient(int patientId, int nurseId,string status);
+        Task<bool> AssignNurseToPatient(int patientId, int nurseId,string status,string description);
         Task<bool> RemoveNurseFromPatient(int Id);
         Task<List<NursePatientDto>> GetNursesByPatientId(int patientId);
     }
